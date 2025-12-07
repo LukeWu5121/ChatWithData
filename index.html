@@ -3,36 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat With Your Data</title>
+    <title>Chat with AI</title>
     <link rel="stylesheet" href="style.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 </head>
 <body>
-
-    <div class="chat-container">
-        
-        <div class="header">
-            <h1>ChatWithAI</h1>
-        </div>
-        
-        <div class="chat-window" id="chatWindow">
-            <div class="message system-message">
-                Hello! Please upload a CSV file first, then ask me questions.
+    <!-- Header -->
+    <header class="header">
+        <div class="header-content">
+            <h1 class="logo">Chat with AI</h1>
+            <div class="file-upload-area">
+                <input type="file" id="csvFileInput" accept=".csv" style="display: none;">
+                <span id="fileName" class="file-name">No file selected</span>
+                <button id="uploadButton" class="upload-btn">Upload CSV</button>
             </div>
         </div>
+    </header>
 
-        <div class="input-section">
-            <input type="file" id="csvFileInput" accept=".csv" style="display: none;">
-            <button id="uploadButton" class="upload-icon-btn" title="Upload CSV file">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                </svg>
-            </button>
-            <input type="text" id="messageInput" placeholder="Enter your question here...">
-            <button id="sendButton">Send</button>
+    <!-- Main Container: Single Panel Layout -->
+    <div class="main-container">
+        <!-- Chat Panel (100% width) -->
+        <div class="chat-panel">
+            <div class="chat-window" id="chatWindow">
+                <div class="message system-message">
+                    Hello! Please upload a CSV file first, then ask me questions.
+                </div>
+            </div>
+            <div class="input-section">
+                <select id="modelSelect" class="model-select">
+                    <option value="google">Mistral Large</option>
+                    <option value="deepseek">DeepSeek Chat</option>
+                    <option value="openai">OpenAI GPT-4o Mini</option>
+                    <option value="meta">Meta Llama 3.1</option>
+                </select>
+                <select id="promptSelect" class="prompt-select">
+                    <option value="direct">Direct / Zero-Shot</option>
+                    <option value="cot">Chain-of-Thought (CoT)</option>
+                    <option value="few_shot">Few-Shot</option>
+                </select>
+                <input type="text" id="messageInput" placeholder="Enter your question here...">
+                <button id="sendButton">Send</button>
+            </div>
         </div>
+    </div>
 
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="spinner"></div>
+        <p>Processing...</p>
     </div>
 
     <script src="script.js"></script>
